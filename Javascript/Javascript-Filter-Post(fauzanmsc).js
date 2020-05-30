@@ -11,7 +11,6 @@
    var postTitle = new Array();     // array of posttitles
    var postUrl = new Array();       // array of posturls
    var postDate = new Array();      // array of post publish dates
-   var postSum = new Array();       // array of post summaries
    var postLabels = new Array();    // array of post labels
 
 // global variables
@@ -93,7 +92,6 @@ function loadtoc(json) {
             postTitle.push(posttitle);
             postDate.push(postdate);
             postUrl.push(posturl);
-            postSum.push(postcontent);
             postLabels.push(pll);
          }
       }
@@ -145,9 +143,6 @@ function sortPosts(sortBy) {
       var temp = postUrl[x];
       postUrl[x] = postUrl[y];
       postUrl[y] = temp;
-      var temp = postSum[x];
-      postSum[x] = postSum[y];
-      postSum[y] = temp;
       var temp = postLabels[x];
       postLabels[x] = postLabels[y];
       postLabels[y] = temp;
@@ -169,11 +164,11 @@ function displayToc(filter) {
 // this function creates a three-column table and adds it to the screen
    var numDisplayed = 0;
    var tocTable = '';
-   var tocHead1 = 'POST TITLE';
+   var tocHead1 = 'Judul Artikel';
    var tocTool1 = 'Click to sort by title';
-   var tocHead2 = 'POST DATE';
+   var tocHead2 = 'Tanggal';
    var tocTool2 = 'Click to sort by date';
-   var tocHead3 = 'LABELS';
+   var tocHead3 = 'Kategori';
    var tocTool3 = '';
    if (sortBy == "titleasc") { 
       tocTool1 += ' (descending)';
@@ -195,7 +190,7 @@ function displayToc(filter) {
       tocTool3 = 'Click to show all posts';
    }
    tocTable += '<table>';
-   tocTable += '<tr>';
+   tocTable += '<tr class="header-center">';
    tocTable += '<td class="toc-header-col1">';
    tocTable += '<a href="javascript:toggleTitleSort();" title="' + tocTool1 + '">' + tocHead1 + '</a>';
    tocTable += '</td>';
@@ -208,12 +203,12 @@ function displayToc(filter) {
    tocTable += '</tr>';
    for (var i = 0; i < postTitle.length; i++) {
       if (filter == '') {
-         tocTable += '<tr><td class="toc-entry-col1"><a href="' + postUrl[i] + '" title="' + postSum[i] + '">' + postTitle[i] + '</a></td><td class="toc-entry-col2">' + postDate[i] + '</td><td class="toc-entry-col3">' + postLabels[i] + '</td></tr>';
+         tocTable += '<tr><td class="toc-entry-col1"><ul style="margin: 0px;"><li style="list-style: none;padding: 0 10px;"><a href="' + postUrl[i] + '" title="' + postTitle[i] + '">' + postTitle[i] + '</a></li></ul></td><td class="toc-entry-col2">' + postDate[i] + '</td><td class="toc-entry-col3">' + postLabels[i] + '</td></tr>';
          numDisplayed++;
       } else {
           z = postLabels[i].lastIndexOf(filter);
           if ( z!= -1) {
-             tocTable += '<tr><td class="toc-entry-col1"><a href="' + postUrl[i] + '" title="' + postSum[i] + '">' + postTitle[i] + '</a></td><td class="toc-entry-col2">' + postDate[i] + '</td><td class="toc-entry-col3">' + postLabels[i] + '</td></tr>';
+             tocTable += '<tr><td class="toc-entry-col1"><ul style="margin: 0px;"><li style="list-style: none;padding: 0 10px;"><a href="' + postUrl[i] + '" title="' + postTitle[i] + '">' + postTitle[i] + '</a></li></ul></td><td class="toc-entry-col2">' + postDate[i] + '</td><td class="toc-entry-col3">' + postLabels[i] + '</td></tr>';
              numDisplayed++;
           }
         }
